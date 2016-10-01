@@ -10,6 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var symbolCurrency: String = "$"
+    var separatorThousand: String = "."
+    
     @IBOutlet weak var txtBill: UITextField!
     @IBOutlet weak var lblTip: UILabel!
     @IBOutlet weak var lblTotal: UILabel!
@@ -22,6 +25,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         txtBill.becomeFirstResponder()
+        getLocale()
         calculateTip(NSNull.self)
     }
 
@@ -30,7 +34,11 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getLocaleCurrency(){
+    func getLocale(){
+        let formatter =  NumberFormatter();
+        symbolCurrency = formatter.currencySymbol
+        separatorThousand = formatter.currencyGroupingSeparator
+        print(String(format: "KenK11 %@", separatorThousand))
         
     }
     
@@ -38,12 +46,10 @@ class ViewController: UIViewController {
         view.endEditing(true)
     }
     @IBAction func calculateTip(_ sender: AnyObject) {
-        let currency = Locale.current.currencySymbol!
         let percent = [0.1, 0.15, 0.2]
         let bill = (Double) (txtBill.text!) ?? 0
-        
-        lblTip.text = String(format: "%@ %.2f", currency, bill * percent[percentList.selectedSegmentIndex])
-        lblTotal.text = String(format: "%@ %.2f", currency, bill * (1+percent[percentList.selectedSegmentIndex]))
+        lblTip.text = String(format: "%@ %.2f", symbolCurrency, bill * percent[percentList.selectedSegmentIndex])
+        lblTotal.text = String(format: "%@ %.2f", symbolCurrency, bill * (1+percent[percentList.selectedSegmentIndex]))
     }
 
 }
