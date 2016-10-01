@@ -10,11 +10,7 @@ import UIKit
 
 class SettingViewController: UIViewController {
     let keyPercentages = "percentages"
-    let keyFirst = "firstPercent"
-    let keySecond = "secondPercent"
-    let keyThird = "thirdPercent"
-    let keyFourth = "fourthPercent"
-    let keyFifth = "fifthPercent"
+    let keyNo = ["firstPercent", "secondPercent", "thirdPercent", "fourthPercent", "fifthPercent"]
     
     var defaults  = UserDefaults.standard
     @IBOutlet weak var txtPercentages: UILabel!
@@ -69,25 +65,8 @@ class SettingViewController: UIViewController {
     
     @IBAction func updatePercentage(_ txtPercent: UITextField) {
         let percent = (Int) (txtPercent.text!) ?? 0
-        switch txtPercent.tag {
-        case 1:
-            saveConfig(key: keyFirst, value: percent)
-            break
-        case 2:
-            saveConfig(key: keySecond, value: percent)
-            break
-        case 3:
-            saveConfig(key: keyThird, value: percent)
-            break
-        case 4:
-            saveConfig(key: keyFourth, value: percent)
-            break
-        case 5:
-            saveConfig(key: keyFifth, value: percent)
-            break
-        default:
-            break
-        }
+        print(String(format: "KenK11 %d", txtPercent.tag))
+        saveConfig(key: keyNo[txtPercent.tag - 1], value: percent)
         txtPercent.text = String(percent)
     }
     
@@ -160,23 +139,12 @@ class SettingViewController: UIViewController {
     }
     
     func loadPercentages(count:Int){
-        txtFirstPercentage.text = getPercent(key: keyFirst)
-        txtSecondPercentage.text = getPercent(key: keySecond)
-        switch count {
-        case 5:
-            txtFifthPercentage.text = getPercent(key: keyFifth)
-            txtFourthPercentage.text = getPercent(key: keyFourth)
-            txtThirdPercentage.text = getPercent(key: keyThird)
-            break
-        case 4:
-            txtFourthPercentage.text = getPercent(key: keyFourth)
-            txtThirdPercentage.text = getPercent(key: keyThird)
-            break
-        case 3:
-            txtThirdPercentage.text = getPercent(key: keyThird)
-            break
-        default:
-            break
+        var index: Int = 1;
+        var txtField: UITextField
+        while(index <= count){
+            txtField = self.view.viewWithTag(index) as! UITextField
+            txtField.text = getPercent(key: keyNo[index - 1])
+            index += 1
         }
     }
     
