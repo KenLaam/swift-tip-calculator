@@ -15,14 +15,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblTotal: UILabel!
     @IBOutlet weak var percentList: UISegmentedControl!
     
+    var percentages: [Int] = [10, 15, 20, 25, 30]
     var defaults  = UserDefaults.standard
     let keyPercentages = "percentages"
-    let keyFirst = "firstPercent"
-    let keySecond = "secondPercent"
-    let keyThird = "thirdPercent"
-    let keyFourth = "fourthPercent"
-    let keyFifth = "fifthPercent"
-    
+    let keyNo = ["firstPercent", "secondPercent", "thirdPercent", "fourthPercent", "fifthPercent"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +26,7 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        loadConfig()
         txtBill.becomeFirstResponder()
         calculateTip(NSNull.self)
     }
@@ -40,22 +37,24 @@ class ViewController: UIViewController {
     }
     
     func loadConfig(){
-        var percentages = (Int) (defaults.integer(forKey: keyPercentages))
-        if (percentages == 0){
-            percentages = 3;
+        var count = (Int) (defaults.integer(forKey: keyPercentages))
+        if (count == 0){
+            count = 3;
         }
+        
         percentList.removeAllSegments()
-//        var index = 0
-//        
-//        switch percentages {
-//        
-//        while (index < percentages) {
-//            percentList.insertSegment(withTitle: <#T##String?#>, at: index, animated: Bool)
-//        }
+        var index = 0
+        var percent: Int
+        var title: String
         
-        
-        
-        
+        while (index < count){
+            percent = defaults.integer(forKey: keyNo[index])
+            title = String(format: "%d%%", percent)
+            percentList.insertSegment(withTitle: title, at: index, animated: false)
+            percentages[index] = percent
+            index += 1
+        }
+        percentList.selectedSegmentIndex = 0
     }
     
     
@@ -65,13 +64,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func calculateTip(_ sender: AnyObject) {
-        let percent = [0.1, 0.15, 0.2]
-        let bill = (Double) (txtBill.text!) ?? 0
+        let bill = (Float) (txtBill.text!) ?? 0
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.currency
-        
-        lblTip.text = numberFormatter.string(from: NSNumber(value: bill * percent[percentList.selectedSegmentIndex]))
-        lblTotal.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent[percentList.selectedSegmentIndex])))
+        let percent = Float(percentages[percentList.selectedSegmentIndex] / 100)
+        print(String(format: "KenK11 %.2f %d %d", percent, percentList.selectedSegmentIndex, percentages[percentList.selectedSegmentIndex]))
+        lblTip.text = numberFormatter.string(from: NSNumber(value: bill * percent))
+        lblTotal.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent)))
     }
 
 }
