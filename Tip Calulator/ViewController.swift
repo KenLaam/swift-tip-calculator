@@ -67,8 +67,7 @@ class ViewController: UIViewController {
         let bill = (Float) (txtBill.text!) ?? 0
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.currency
-        let percent = Float(percentages[percentList.selectedSegmentIndex] / 100)
-        print(String(format: "KenK11 %.2f %d %d", percent, percentList.selectedSegmentIndex, percentages[percentList.selectedSegmentIndex]))
+        let percent = Float(percentages[percentList.selectedSegmentIndex]) / 100.0
         lblTip.text = numberFormatter.string(from: NSNumber(value: bill * percent))
         lblTotal.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent)))
     }
