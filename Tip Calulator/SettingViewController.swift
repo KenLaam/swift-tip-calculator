@@ -9,7 +9,8 @@
 import UIKit
 
 class SettingViewController: UIViewController {
-    let defaults  = NSUserDefaults.standardUserDefaults()
+    @IBOutlet weak var tableSetting: UITableView!
+    let defaults  = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,12 @@ class SettingViewController: UIViewController {
     */
     
     func saveConfig(){
-        defaults.setObject("$", forKey: "currency")
+        defaults.set("$", forKey: "currency")
         defaults.synchronize()
     }
     
     func loadConfig(){
-        defaults
+        
     }
 
 }

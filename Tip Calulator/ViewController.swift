@@ -24,11 +24,11 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func tapMainView(sender: AnyObject) {
+    
+    @IBAction func tapMainView(_ sender: AnyObject) {
         view.endEditing(true)
     }
-    @IBAction func calculateTip(sender: AnyObject) {
+    @IBAction func calculateTip(_ sender: AnyObject) {
         let percent = [0.1, 0.15, 0.2]
         let bill = (Double) (txtBill.text!) ?? 0
         
