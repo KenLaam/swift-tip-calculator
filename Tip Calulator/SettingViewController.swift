@@ -15,6 +15,18 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var txtPercentages: UILabel!
     @IBOutlet weak var stepperPercentages: UIStepper!
     
+    @IBOutlet weak var txtFirstPercentage: UITextField!
+    @IBOutlet weak var txtSecondPercentage: UITextField!
+    @IBOutlet weak var txtThirdPercentage: UITextField!
+    @IBOutlet weak var txtFourthPercentage: UITextField!
+    @IBOutlet weak var txtFifthPercentage: UITextField!
+    
+    @IBOutlet weak var labelFirstPercentage: UILabel!
+    @IBOutlet weak var labelSecondPercentage: UILabel!
+    @IBOutlet weak var labelThirdPercentage: UILabel!
+    @IBOutlet weak var labelFourthPercentage: UILabel!
+    @IBOutlet weak var labelFifthPercentage: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -47,7 +59,7 @@ class SettingViewController: UIViewController {
     @IBAction func valueStepperChanged(_ sender: UIStepper) {
         txtPercentages.text = Int(sender.value).description
         saveConfig(key: keyPercentages, value: Int(sender.value))
-        
+        displayPercentages(count: Int(sender.value))
     }
     
     func saveConfig(key:String, value:Int){
@@ -63,6 +75,49 @@ class SettingViewController: UIViewController {
         
         txtPercentages.text = String(percentages)
         stepperPercentages.value = (Double) (percentages)
+    }
+    
+    func displayPercentages(count:Int){
+        switch count {
+        case 2:
+            labelThirdPercentage.isHidden = true
+            labelFourthPercentage.isHidden = true
+            labelFifthPercentage.isHidden = true
+            
+            txtThirdPercentage.isHidden = true
+            txtFourthPercentage.isHidden = true
+            txtFifthPercentage.isHidden = true
+            break
+        case 3:
+            labelThirdPercentage.isHidden = false
+            labelFourthPercentage.isHidden = true
+            labelFifthPercentage.isHidden = true
+            
+            txtThirdPercentage.isHidden = false
+            txtFourthPercentage.isHidden = true
+            txtFifthPercentage.isHidden = true
+            break
+        case 4:
+            labelThirdPercentage.isHidden = false
+            labelFourthPercentage.isHidden = false
+            labelFifthPercentage.isHidden = true
+            
+            txtThirdPercentage.isHidden = false
+            txtFourthPercentage.isHidden = false
+            txtFifthPercentage.isHidden = true
+            break
+        case 5:
+            labelThirdPercentage.isHidden = false
+            labelFourthPercentage.isHidden = false
+            labelFifthPercentage.isHidden = false
+            
+            txtThirdPercentage.isHidden = false
+            txtFourthPercentage.isHidden = false
+            txtFifthPercentage.isHidden = false
+            break
+        default:
+            break;
+        }
     }
     
 }
