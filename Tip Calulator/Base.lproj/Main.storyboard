@@ -165,6 +165,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="u8D-hV-b6c"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rut-G5-cuo">
                                 <frame key="frameInset" minX="262" minY="192" width="97" height="30"/>
@@ -172,6 +175,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="XEu-b5-dCZ"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ahX-9d-E5o">
                                 <frame key="frameInset" minX="262" minY="230" width="97" height="30"/>
@@ -179,6 +185,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="vD9-Pa-ea6"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="46Y-gJ-mTh">
                                 <frame key="frameInset" minX="262" minY="268" width="97" height="30"/>
@@ -186,6 +195,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="Pzj-Qo-P2h"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UA8-Rm-tRE">
                                 <frame key="frameInset" minX="262" minY="306" width="97" height="30"/>
@@ -193,6 +205,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="5p1-zM-7B1"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1st percentage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whf-Uw-P9r">
                                 <frame key="frameInset" minX="16" minY="159" width="114" height="21"/>

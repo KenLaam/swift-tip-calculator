@@ -10,8 +10,13 @@ import UIKit
 
 class SettingViewController: UIViewController {
     let keyPercentages = "percentages"
+    let keyFirst = "firstPercent"
+    let keySecond = "secondPercent"
+    let keyThird = "thirdPercent"
+    let keyFourth = "fourthPercent"
+    let keyFifth = "fifthPercent"
     
-    let defaults  = UserDefaults.standard
+    var defaults  = UserDefaults.standard
     @IBOutlet weak var txtPercentages: UILabel!
     @IBOutlet weak var stepperPercentages: UIStepper!
     
@@ -62,6 +67,31 @@ class SettingViewController: UIViewController {
         displayPercentages(count: Int(sender.value))
     }
     
+    @IBAction func updatePercentage(_ txtPercent: UITextField) {
+        let percent = (Int) (txtPercent.text!) ?? 0
+        switch txtPercent.tag {
+        case 1:
+            saveConfig(key: keyFirst, value: percent)
+            break
+        case 2:
+            saveConfig(key: keySecond, value: percent)
+            break
+        case 3:
+            saveConfig(key: keyThird, value: percent)
+            break
+        case 4:
+            saveConfig(key: keyFourth, value: percent)
+            break
+        case 5:
+            saveConfig(key: keyFifth, value: percent)
+            break
+        default:
+            break
+        }
+        txtPercent.text = String(percent)
+    }
+    
+    
     func saveConfig(key:String, value:Int){
         defaults.set(value, forKey: key)
         defaults.synchronize()
@@ -75,6 +105,15 @@ class SettingViewController: UIViewController {
         
         txtPercentages.text = String(percentages)
         stepperPercentages.value = (Double) (percentages)
+        displayPercentages(count: percentages)
+        loadPercentages(count: percentages)
+    }
+    
+    func getPercent(key:String) -> String{
+        if((defaults.string(forKey: key)) != nil){
+            return defaults.string(forKey: key)!
+        }
+        return "0"
     }
     
     func displayPercentages(count:Int){
@@ -117,6 +156,27 @@ class SettingViewController: UIViewController {
             break
         default:
             break;
+        }
+    }
+    
+    func loadPercentages(count:Int){
+        txtFirstPercentage.text = getPercent(key: keyFirst)
+        txtSecondPercentage.text = getPercent(key: keySecond)
+        switch count {
+        case 5:
+            txtFifthPercentage.text = getPercent(key: keyFifth)
+            txtFourthPercentage.text = getPercent(key: keyFourth)
+            txtThirdPercentage.text = getPercent(key: keyThird)
+            break
+        case 4:
+            txtFourthPercentage.text = getPercent(key: keyFourth)
+            txtThirdPercentage.text = getPercent(key: keyThird)
+            break
+        case 3:
+            txtThirdPercentage.text = getPercent(key: keyThird)
+            break
+        default:
+            break
         }
     }
     
