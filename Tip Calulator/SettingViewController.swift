@@ -15,6 +15,7 @@ class SettingViewController: UIViewController {
     var defaults  = UserDefaults.standard
     @IBOutlet weak var txtPercentages: UILabel!
     @IBOutlet weak var stepperPercentages: UIStepper!
+    @IBOutlet weak var btnSave: UIBarButtonItem!
     
     @IBOutlet weak var txtFirstPercentage: UITextField!
     @IBOutlet weak var txtSecondPercentage: UITextField!
@@ -58,16 +59,35 @@ class SettingViewController: UIViewController {
     }
     
     @IBAction func valueStepperChanged(_ sender: UIStepper) {
+        btnSave.isEnabled = true
         txtPercentages.text = Int(sender.value).description
-        saveConfig(key: keyPercentages, value: Int(sender.value))
         displayPercentages(count: Int(sender.value))
     }
     
     @IBAction func updatePercentage(_ txtPercent: UITextField) {
+        btnSave.isEnabled = true
         let percent = (Int) (txtPercent.text!) ?? 0
-        print(String(format: "KenK11 %d", txtPercent.tag))
         saveConfig(key: keyNo[txtPercent.tag - 1], value: percent)
         txtPercent.text = String(percent)
+    }
+    
+    @IBAction func clickSave(_ sender: AnyObject) {
+        btnSave.isEnabled = false
+        view.endEditing(true)
+        saveConfig(key: keyPercentages, value: Int(stepperPercentages.value))
+        var index = 1
+        var txtField: UITextField
+        while(index <= Int(stepperPercentages.value)){
+            txtField = self.view.viewWithTag(index) as! UITextField
+            saveConfig(key: keyNo[index - 1], value: Int(txtField.text!)!)
+            index += 1
+        }
+        
+    }
+    
+    @IBAction func valueChanged(_ sender: AnyObject) {
+        btnSave.isEnabled = true
+
     }
     
     
@@ -136,6 +156,7 @@ class SettingViewController: UIViewController {
         default:
             break;
         }
+        loadPercentages(count: count)
     }
     
     func loadPercentages(count:Int){

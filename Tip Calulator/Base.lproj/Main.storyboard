@@ -153,8 +153,7 @@
                                 <frame key="frameInset" minX="265" minY="110" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="updatePercentages:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="SuR-K8-5Pg"/>
-                                    <action selector="valueStepperChanged:" destination="iYP-iS-Un7" eventType="valueChanged" id="QGc-Dw-XXn"/>
+                                    <action selector="valueStepperChanged:" destination="iYP-iS-Un7" eventType="valueChanged" id="ldd-om-PYt"/>
                                 </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTG-6T-FBq">
@@ -171,7 +170,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
-                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="u8D-hV-b6c"/>
+                                    <action selector="valueChanged:" destination="iYP-iS-Un7" eventType="editingChanged" id="Wpd-BV-EoJ"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rut-G5-cuo">
@@ -181,7 +180,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
-                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="XEu-b5-dCZ"/>
+                                    <action selector="valueChanged:" destination="iYP-iS-Un7" eventType="editingChanged" id="gbW-J9-gFd"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ahX-9d-E5o">
@@ -191,7 +190,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
-                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="vD9-Pa-ea6"/>
+                                    <action selector="valueChanged:" destination="iYP-iS-Un7" eventType="editingChanged" id="Hmi-Gb-fuq"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="46Y-gJ-mTh">
@@ -201,7 +200,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
-                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="Pzj-Qo-P2h"/>
+                                    <action selector="valueChanged:" destination="iYP-iS-Un7" eventType="editingChanged" id="II8-iZ-pYg"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UA8-Rm-tRE">
@@ -211,7 +210,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <connections>
-                                    <action selector="updatePercentage:" destination="iYP-iS-Un7" eventType="editingDidEnd" id="5p1-zM-7B1"/>
+                                    <action selector="valueChanged:" destination="iYP-iS-Un7" eventType="editingChanged" id="XZv-Yh-Moo"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1st percentage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whf-Uw-P9r">
@@ -242,8 +241,17 @@
                             <outletCollection property="gestureRecognizers" destination="nk8-wj-jj6" appends="YES" id="q2z-hM-9N4"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="vPD-7h-Vzp"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Settings" id="vPD-7h-Vzp">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Save" id="hw1-PJ-qB8">
+                            <connections>
+                                <action selector="clickSave:" destination="iYP-iS-Un7" id="uxu-Wh-6X9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="btnSave" destination="hw1-PJ-qB8" id="yEn-rw-UvQ"/>
                         <outlet property="labelFifthPercentage" destination="Qs7-YE-vg9" id="mKm-WZ-0Js"/>
                         <outlet property="labelFirstPercentage" destination="whf-Uw-P9r" id="QmR-iV-Gro"/>
                         <outlet property="labelFourthPercentage" destination="J5v-tV-02N" id="yZT-F7-xUO"/>
