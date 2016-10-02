@@ -19,6 +19,11 @@ class ViewController: UIViewController {
     var defaults  = UserDefaults.standard
     let keyPercentages = "percentages"
     let keyNo = ["firstPercent", "secondPercent", "thirdPercent", "fourthPercent", "fifthPercent"]
+    let keyDate = "date"
+    let keyInterval = "interval"
+    let keyLastBill = "lastBill"
+    let dateFormat = "MM-dd-yyyy_HH:mm:ss"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +33,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadConfig()
         txtBill.becomeFirstResponder()
+        checkLastBill()
         calculateTip(NSNull.self)
     }
 
@@ -58,9 +64,48 @@ class ViewController: UIViewController {
     }
     
     
-    
     @IBAction func tapMainView(_ sender: AnyObject) {
         view.endEditing(true)
+        
+        let currentDate = NSDate()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        let convertedDate = dateFormatter.string(from: currentDate as Date)
+        print( convertedDate)
+        
+        defaults.set(convertedDate, forKey: keyDate)
+        defaults.set(txtBill.text, forKey: keyLastBill)
+        defaults.synchronize()
+        }
+    
+    func checkLastBill(){
+        let currentDate = NSDate()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        let lastDate = dateFormatter.date(from: defaults.string(forKey: keyDate)!)
+        let different = currentDate.timeIntervalSince(lastDate!)
+        let dateComponentsFormatter = DateComponentsFormatter()
+        dateComponentsFormatter.unitsStyle = DateComponentsFormatter.UnitsStyle.full
+        dateComponentsFormatter.allowedUnits = [NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second]
+        let autoFormattedDifference = dateComponentsFormatter.string(from: lastDate!, to: currentDate as Date)
+        print(String(format: "KenK11 current time %@ \n", dateFormatter.string(from: currentDate as Date)))
+        print(String(format: "KenK11 last time %@ \n", dateFormatter.string(from: lastDate! as Date)))
+        print(String(format: "KenK11 auto time %@ \n", autoFormattedDifference!))
+        print(String(format: "KenK11 interval time %@ \n", dateComponentsFormatter.string(from: different)!))
+
+        var interval = defaults.double(forKey: keyInterval) * 60
+        if(interval == 0 ){
+            interval = 600
+        }
+
+        if(different.isLessThanOrEqualTo(interval)){
+            print("KenK11 True")
+            txtBill.text = defaults.string(forKey: keyLastBill)
+        } else {
+            print("KenK11 False")
+            txtBill.text = ""
+        }
+        
     }
     
     @IBAction func calculateTip(_ sender: AnyObject) {
@@ -68,6 +113,7 @@ class ViewController: UIViewController {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.currency
         let percent = Float(percentages[percentList.selectedSegmentIndex]) / 100.0
+        
         lblTip.text = numberFormatter.string(from: NSNumber(value: bill * percent))
         lblTotal.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent)))
     }
