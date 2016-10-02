@@ -15,6 +15,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblTotal: UILabel!
     @IBOutlet weak var percentList: UISegmentedControl!
     
+    @IBOutlet weak var lblGroupFirst: UILabel!
+    @IBOutlet weak var lblGroupSecond: UILabel!
+    @IBOutlet weak var lblGroupThird: UILabel!
+    @IBOutlet weak var lblGroupFourth: UILabel!
+    @IBOutlet weak var txtGroupFirst: UILabel!
+    @IBOutlet weak var txtGroupSencond: UILabel!
+    @IBOutlet weak var txtGroupThird: UILabel!
+    @IBOutlet weak var txtGroupFourth: UILabel!
+    
     var percentages: [Int] = [10, 15, 20, 25, 30]
     var defaults  = UserDefaults.standard
     let keyPercentages = "percentages"
@@ -46,19 +55,23 @@ class ViewController: UIViewController {
         var count = (Int) (defaults.integer(forKey: keyPercentages))
         if (count == 0){
             count = 3;
-        }
+            defaults.set(percentages[0], forKey: keyNo[0])
+            defaults.set(percentages[1], forKey: keyNo[1])
+            defaults.set(percentages[2], forKey: keyNo[2])
+            defaults.synchronize()
+        } else {
+            percentList.removeAllSegments()
+            var index = 0
+            var percent: Int
+            var title: String
         
-        percentList.removeAllSegments()
-        var index = 0
-        var percent: Int
-        var title: String
-        
-        while (index < count){
-            percent = defaults.integer(forKey: keyNo[index])
-            title = String(format: "%d%%", percent)
-            percentList.insertSegment(withTitle: title, at: index, animated: false)
-            percentages[index] = percent
-            index += 1
+            while (index < count){
+                percent = defaults.integer(forKey: keyNo[index])
+                title = String(format: "%d%%", percent)
+                percentList.insertSegment(withTitle: title, at: index, animated: false)
+                percentages[index] = percent
+                index += 1
+            }
         }
         percentList.selectedSegmentIndex = 0
     }
@@ -82,12 +95,8 @@ class ViewController: UIViewController {
         if((defaults.string(forKey: keyDate)) != nil){
             let lastDate = dateFormatter.date(from: defaults.string(forKey: keyDate)!)
             let different = currentDate.timeIntervalSince(lastDate!)
-
-//        print(String(format: "KenK11 current time %@ \n", dateFormatter.string(from: currentDate as Date)))
-//        print(String(format: "KenK11 last time %@ \n", dateFormatter.string(from: lastDate! as Date)))
-//        print(String(format: "KenK11 interval time %@ \n", dateComponentsFormatter.string(from: different)!))
-
             var interval = defaults.double(forKey: keyInterval) * 60
+
             if (interval == 0 ){
                 interval = 600
             }
@@ -107,9 +116,14 @@ class ViewController: UIViewController {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.currency
         let percent = Float(percentages[percentList.selectedSegmentIndex]) / 100.0
-        
+        print(percent)
         lblTip.text = numberFormatter.string(from: NSNumber(value: bill * percent))
         lblTotal.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent)))
+        
+        txtGroupFirst.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent) / 3.0))
+        txtGroupSencond.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent) / 4.0))
+        txtGroupThird.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent) / 8.0))
+        txtGroupFourth.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent) / 12.0))
     }
 
 }
