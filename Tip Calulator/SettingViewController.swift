@@ -11,10 +11,13 @@ import UIKit
 class SettingViewController: UIViewController {
     let keyPercentages = "percentages"
     let keyNo = ["firstPercent", "secondPercent", "thirdPercent", "fourthPercent", "fifthPercent"]
+    let keyInterval = "interval"
     
     var defaults  = UserDefaults.standard
     @IBOutlet weak var txtPercentages: UILabel!
+    @IBOutlet weak var txtInterval: UILabel!
     @IBOutlet weak var stepperPercentages: UIStepper!
+    @IBOutlet weak var stepperInterval: UIStepper!
     @IBOutlet weak var btnSave: UIBarButtonItem!
     
     @IBOutlet weak var txtFirstPercentage: UITextField!
@@ -58,22 +61,22 @@ class SettingViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @IBAction func valueStepperChanged(_ sender: UIStepper) {
+    
+    @IBAction func valueStepperIntervalChanged(_ sender: UIStepper) {
+        btnSave.isEnabled = true
+        txtInterval.text = Int(sender.value).description
+    }
+    
+    @IBAction func valueStepperPercentageChanged(_ sender: UIStepper) {
         btnSave.isEnabled = true
         txtPercentages.text = Int(sender.value).description
         displayPercentages(count: Int(sender.value))
     }
     
-    @IBAction func updatePercentage(_ txtPercent: UITextField) {
-        btnSave.isEnabled = true
-        let percent = (Int) (txtPercent.text!) ?? 0
-        saveConfig(key: keyNo[txtPercent.tag - 1], value: percent)
-        txtPercent.text = String(percent)
-    }
-    
     @IBAction func clickSave(_ sender: AnyObject) {
         btnSave.isEnabled = false
         view.endEditing(true)
+        saveConfig(key: keyInterval, value: Int(stepperInterval.value))
         saveConfig(key: keyPercentages, value: Int(stepperPercentages.value))
         var index = 1
         var txtField: UITextField
@@ -82,12 +85,12 @@ class SettingViewController: UIViewController {
             saveConfig(key: keyNo[index - 1], value: Int(txtField.text!)!)
             index += 1
         }
-        
     }
     
-    @IBAction func valueChanged(_ sender: AnyObject) {
+    @IBAction func valueChanged(_ txtPercent: UITextField) {
         btnSave.isEnabled = true
-
+        let percent = (Int) (txtPercent.text!) ?? 0
+        txtPercent.text = String(percent)
     }
     
     
@@ -97,6 +100,13 @@ class SettingViewController: UIViewController {
     }
     
     func loadConfig(){
+        var interval = defaults.integer(forKey: keyInterval)
+        if(interval == 0 ){
+            interval = 10
+        }
+        txtInterval.text = String(interval)
+        stepperInterval.value = (Double) (interval)
+
         var percentages = (Int) (defaults.integer(forKey: keyPercentages))
         if (percentages == 0){
             percentages = 3;
@@ -106,6 +116,7 @@ class SettingViewController: UIViewController {
         stepperPercentages.value = (Double) (percentages)
         displayPercentages(count: percentages)
         loadPercentages(count: percentages)
+        
     }
     
     func getPercent(key:String) -> String{
