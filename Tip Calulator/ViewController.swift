@@ -41,9 +41,9 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         loadConfig()
-        txtBill.becomeFirstResponder()
         checkLastBill()
         calculateTip(NSNull.self)
+        txtBill.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -116,18 +116,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func calculateTip(_ sender: AnyObject) {
-        let bill = (Float) (txtBill.text!) ?? 0
+        let bill = (Int) (txtBill.text!) ?? 0
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.currency
-        let percent = Float(percentages[percentList.selectedSegmentIndex]) / 100.0
+        let percent = (Float)(percentages[percentList.selectedSegmentIndex]) / 100.0
         print(percent)
-        lblTip.text = numberFormatter.string(from: NSNumber(value: bill * percent))
-        lblTotal.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent)))
-        
-        txtGroupFirst.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent) / 3.0))
-        txtGroupSencond.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent) / 4.0))
-        txtGroupThird.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent) / 8.0))
-        txtGroupFourth.text = numberFormatter.string(from: NSNumber(value: bill * (1 + percent) / 12.0))
+        lblTip.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * percent))
+        lblTotal.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent)))
+        txtBill.text = (String)(bill)
+        txtGroupFirst.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent) / 3.0))
+        txtGroupSencond.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent) / 4.0))
+        txtGroupThird.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent) / 8.0))
+        txtGroupFourth.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent) / 12.0))
     }
 
 }
