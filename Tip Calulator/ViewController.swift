@@ -110,6 +110,10 @@ class ViewController: UIViewController {
             }
         }
     }
+    @IBAction func valueStepperChanged(_ sender: AnyObject) {
+        view.endEditing(true)
+        calculateTip(NSNull.self)
+    }
     
     @IBAction func calculateTip(_ sender: AnyObject) {
         let bill = (Float) (txtBill.text!) ?? 0

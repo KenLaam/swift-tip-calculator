@@ -4,7 +4,7 @@
 
 Submitted by: **Lam Hoang Vu**
 
-Time spent: **20** hours spent in total
+Time spent: **30** hours spent in total
 
 ## User Stories
 
@@ -22,6 +22,7 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - User can config number percentages
+- Additional feature sharing bill for each
 
 ## Video Walkthrough 
 
