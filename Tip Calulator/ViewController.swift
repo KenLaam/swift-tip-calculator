@@ -116,18 +116,26 @@ class ViewController: UIViewController {
     }
     
     @IBAction func calculateTip(_ sender: AnyObject) {
-        let bill = (Int) (txtBill.text!) ?? 0
+        let bill = (Double) (txtBill.text!) ?? 0
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.currency
         let percent = (Float)(percentages[percentList.selectedSegmentIndex]) / 100.0
         print(percent)
         lblTip.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * percent))
         lblTotal.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent)))
-        txtBill.text = (String)(bill)
+
         txtGroupFirst.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent) / 3.0))
         txtGroupSencond.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent) / 4.0))
         txtGroupThird.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent) / 8.0))
         txtGroupFourth.text = numberFormatter.string(from: NSNumber(value: (Float)(bill) * (1 + percent) / 12.0))
+        
+        let currentDate = NSDate()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = dateFormat
+        defaults.set(dateFormatter.string(from: currentDate as Date), forKey: keyDate)
+        defaults.set(txtBill.text, forKey: keyLastBill)
+        defaults.synchronize()
+        
     }
 
 }
