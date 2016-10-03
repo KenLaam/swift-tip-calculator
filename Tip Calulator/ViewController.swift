@@ -148,15 +148,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         switch string {
         case "1","2","3","4","5","6","7","8","9":
             let array = textField.text!.characters.map { String($0) }
-            if array.count > 0 {
-                if array[0] == "0"{
-                    textField.text = string
-                    return false;
+            if(array.count > 1){
+                if(array[0] == "0" && array[1] == "."){
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                if array.count > 0 {
+                    if array[0] == "0"{
+                        textField.text = string
+                        return false;
+                    } else {
+                        return true
+                    }
                 } else {
                     return true
                 }
-            } else {
-                return true
             }
         case ".":
             let array = textField.text!.characters.map { String($0) }
@@ -173,16 +181,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         case "0":
             let array = textField.text!.characters.map { String($0) }
-            var zeroCount = 0
-            for c in array{
-                if c == "0" {
-                    zeroCount += 1
-                }
-            }
-            
-            if zeroCount == 1 {
-                if(array[0] == "0"){
-                    return false
+            if array.count > 0 {
+                if array[0] == "0" {
+                    if(array.count > 1 && array[1] == "."){
+                        return true
+                    } else {
+                        return false
+                    }
                 } else {
                     return true
                 }
