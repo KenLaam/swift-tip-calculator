@@ -37,9 +37,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.view.alpha = 0.3
+        UIView.animate(withDuration: 0.4, animations: {
+            self.view.alpha = 1
+        })
         loadConfig()
         checkLastBill()
         calculateTip(NSNull.self)
