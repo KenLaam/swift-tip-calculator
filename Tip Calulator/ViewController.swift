@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtBill: UITextField!
     @IBOutlet weak var lblTip: UILabel!
@@ -49,6 +49,7 @@ class ViewController: UIViewController {
         checkLastBill()
         calculateTip(NSNull.self)
         txtBill.becomeFirstResponder()
+        txtBill.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -140,7 +141,68 @@ class ViewController: UIViewController {
         defaults.set(dateFormatter.string(from: currentDate as Date), forKey: keyDate)
         defaults.set(txtBill.text, forKey: keyLastBill)
         defaults.synchronize()
+    }
+    
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {// return NO to not change text
         
+        switch string {
+        case "1","2","3","4","5","6","7","8","9":
+            let array = textField.text!.characters.map { String($0) }
+            if array.count > 0 {
+                if array[0] == "0"{
+                    textField.text = string
+                    return false;
+                } else {
+                    return true
+                }
+            } else {
+                return true
+            }
+        case ".":
+            let array = textField.text!.characters.map { String($0) }
+            var decimalCount = 0
+            for character in array {
+                if character == "." {
+                    decimalCount += 1
+                }
+            }
+            if decimalCount == 1 {
+                return false
+            } else {
+                return true
+            }
+        case "0":
+            let array = textField.text!.characters.map { String($0) }
+            var zeroCount = 0
+            for c in array{
+                if c == "0" {
+                    zeroCount += 1
+                }
+            }
+            
+            if zeroCount == 1 {
+                if(array[0] == "0"){
+                    return false
+                } else {
+                    return true
+                }
+            } else {
+                return true
+            }
+            
+        default:
+            let array = textField.text!.characters.map { String($0) }
+            if array.count == 0 {
+                return true
+            }
+            let  char = string.cString(using: String.Encoding.utf8)!
+            let isBackSpace = strcmp(char, "\\b")
+            
+            if (isBackSpace == -92) {
+                return true
+            }
+            return false
+        }
     }
 
 }
